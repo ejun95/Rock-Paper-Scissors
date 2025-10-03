@@ -23,3 +23,9 @@ function getComputerChoice() {
 function getRandomNumber() {
   return Math.floor(Math.random() * MAX_NUMBER_OF_CHOICES);
 }
+
+function getHumanChoice() {
+  let input = prompt("Rock, Paper or Scissors?");
+
+  return input;
+}
