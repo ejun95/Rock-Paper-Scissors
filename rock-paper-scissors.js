@@ -1,8 +1,5 @@
 const MAX_NUMBER_OF_CHOICES = 3;
 
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
   let choice = "";
  
@@ -34,6 +31,8 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
+  let winner;
+
   humanChoice = humanChoice.toLowerCase();
 
   console.log("you chose " + humanChoice + ", the computer chose " + computerChoice);
@@ -43,35 +42,78 @@ function playRound(humanChoice, computerChoice) {
       console.log("Tie! No one wins this round!");
     } else if(computerChoice == "paper") {
       console.log("Paper covers Rock! You lose!")
-      ++computerScore;
+      winner = "cpu";
     } else if(computerChoice == "scissors") {
       console.log("Rock crushes Scissors! You Win!")
-      ++humanScore;
+      winner = "human";
     }
   } else if(humanChoice == "paper") {
     if(computerChoice == "rock") {
       console.log("Paper covers Rock! You Win!");
-      ++humanScore;
+      winner = "human";
     } else if(computerChoice == "paper") {
       console.log("Tie! No one wins this round!")     
     } else if(computerChoice == "scissors") {
       console.log("Scissors cuts Paper! You Lose!")
-      ++computerScore;
+      winner = "cpu";
     }
   } else if(humanChoice == "scissors") {
     if(computerChoice == "rock") {
       console.log("Rock crushes Scissors! You Lose!");
-      ++computerScore;
+      winner = "cpu";
     } else if(computerChoice == "paper") {
       console.log("Scissors cuts Paper! You Win!")
-      ++humanScore;
+      winner = "human";
     } else if(computerChoice == "scissors") {
       console.log("Tie! No one wins this round!") 
     }
   }
+
+  return winner;
 }
 
-let humanChoice =  getHumanChoice();
-let computerChoice = getComputerChoice();
+function getWinner(humanScore, computerScore) {
+  if(humanScore > computerScore) {
+    console.log("You win!");
+  } else if(humanScore < computerScore) {
+    console.log("You lose!");
+  } else if(humanScore == computerScore) {
+    console.log("Its a tie!");
+  }
+}
 
-playRound(humanChoice, computerChoice);
+function playGame() {
+  const NUM_OF_ROUNDS = 5;
+
+  let humanScore = 0;
+  let computerScore = 0;
+  let currentRound = 0;
+
+  let humanChoice;
+  let computerChoice;
+
+  let roundWinner;
+
+  while(currentRound < NUM_OF_ROUNDS) {
+    console.log("Current Round: " + (currentRound + 1));
+    humanChoice =  getHumanChoice();
+    computerChoice = getComputerChoice();
+
+    roundWinner = playRound(humanChoice, computerChoice);
+
+    if(roundWinner == "human") {
+    humanScore += 1;
+    } else if(winner = "cpu") {
+      computerScore += 1;
+    }
+    
+    console.log("current score:")
+    console.log("HUMAN: " + humanScore + " - CPU: " + computerScore);
+    console.log("");
+    currentRound++;
+  }
+
+  getWinner(humanScore, computerScore);
+}
+
+playGame();
